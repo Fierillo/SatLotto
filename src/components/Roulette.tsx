@@ -6,7 +6,7 @@ const RuletaInteractiva = ({ min = 1, max = 21 }) => {
   const ruletaRef = useRef<HTMLDivElement>(null);
 
   const getNumberFromRotation = (angle: number) => {
-    const totalNumbers = max - min + 11;
+    const totalNumbers = max - min + 1;
     const degreePerNumber = 360 / totalNumbers;
     const adjustedAngle = (angle + degreePerNumber / 2) % 360;
     const index = Math.floor(adjustedAngle / degreePerNumber);
