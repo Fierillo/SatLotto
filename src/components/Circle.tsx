@@ -1,4 +1,4 @@
-import React, { use, useState } from 'react';
+import React, { useState } from 'react';
 import LuckyNumber from './LuckyNumber';
 // Type variables
 interface circleProps {
@@ -14,26 +14,26 @@ export default function Circle({ selectedNumber, setSelectedNumber, isFrozen, se
   //const [selectedNumber, setLocalSelectedNumber] = useState<number | null>(null);
   //const [isFrozen, setLocalIsFrozen] = useState<boolean>(false);
   const numbers = Array.from({ length: 21 }, (_, i) => i + 1);
-  
-
+  const [dummyState, setDummyState] = useState(false);
+  // Triggers when user selects some number in the roulette
   const handleClick = (number: number) => {
-    if (isMatch || victoryMessage) return; // Prevent click if frozen
-    // Get current unix time
-    const unixTime = Math.floor(Date.now()); 
-
-    setSelectedNumber(number);
-    setIsFrozen(true);
-
-    // Starts freeze for 3 seconds
-    if (isMatch) {
-      setVictoryMessage("¡GANASTE LOKO!");
-      setIsFrozen(false);
-      return;
+    // If user won the game freezes
+    if (isMatch) return;
+    // If game is freezed user can't click numbers
+    if (isFrozen) return;  
+    // If user chooses same number creates a micro change to trigger selectedNumber anyway
+    if (selectedNumber === number) {
+      setSelectedNumber(null);
+      setTimeout(() => setSelectedNumber(number), 0);
     } else {
-      setTimeout(() => {
-        setIsFrozen(false);
-      }, 100);
-    } 
+      setSelectedNumber(number);
+    }
+    // Activates frozen status
+    setIsFrozen(true);
+    // Starts freeze for 3 seconds, then desactivate frozen status
+    setTimeout(() => {
+      setIsFrozen(false);
+    }, 3000);
   };
 
   return (
@@ -46,6 +46,8 @@ export default function Circle({ selectedNumber, setSelectedNumber, isFrozen, se
                     rounded-full
                     border-4
                     flex
+                    mt-4
+                    mb-4
                     items-center
                     justify-center
                     transition-colors

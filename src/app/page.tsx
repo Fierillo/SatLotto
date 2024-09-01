@@ -9,7 +9,7 @@ import Circle from "@/components/Circle";
 
 export default function Home() {
   const [selectedNumber, setSelectedNumber] = useState<number | null>(null);
-  const [luckyNumber, setLuckyNumber] = useState<number | null>(null);
+  const [luckyNumber, setLuckyNumber] = useState<string | null>(null);
   const [isFrozen, setIsFrozen] = useState<boolean>(false);
   const [isMatch, setIsMatch] = useState<boolean>(false);
   
@@ -68,10 +68,13 @@ export default function Home() {
           <h2>Unix time: {unixTime} | Fecha: {formattedDate}</h2>
         </div>*/}
         {/* Renders a box that shows luckynumber after user selects some number in roulette */}
-        <LuckyNumber 
+        <LuckyNumber
+          setLuckyNumber={setLuckyNumber}
+          luckyNumber={luckyNumber} 
           selectedNumber={selectedNumber} 
           isFrozen={isFrozen} 
-          setIsMatch={setIsMatch} 
+          setIsMatch={setIsMatch}
+          isMatch={isMatch} 
         />
         {/* Renders a roulette of numbers that user can select */}
         <Circle
@@ -81,6 +84,15 @@ export default function Home() {
           isFrozen={isFrozen}
           setIsFrozen={setIsFrozen}
         />
+      </div>
+      {/* Debug box*/}
+      <div className="absolute top-0 right-0 mt-4 mr-4 w-50 p-4 bg-gray-800 border border-gray-700 text-white rounded-lg shadow-lg">
+        <h2 className="text-lg font-bold mb-4">Debug Information</h2>
+        <ul className="list-none text-center">
+          <li className="py-1">Lucky Number: {luckyNumber}</li>
+          <li className="py-1">Selected Number: {selectedNumber}</li>
+          <li className="py-1">Is Match: {isMatch.toString()}</li>
+        </ul>
       </div>
 
       {/*<div className="mb-32 grid text-center lg:mb-0 lg:w-full lg:max-w-5xl lg:grid-cols-4 lg:text-left">

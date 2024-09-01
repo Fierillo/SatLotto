@@ -6,23 +6,25 @@ import { useState, useEffect } from 'react';
 
 // Define the props that LuckyNumber will receive
 interface LuckyNumberProps {
+  setLuckyNumber: React.Dispatch<React.SetStateAction<null | string>>;
+  luckyNumber: null | string;
   selectedNumber: number | null; // The number selected by the user or null if no number is selected
   isFrozen: boolean; // Whether the application is in a frozen state
-  //isMatch: boolean;
+  isMatch: boolean;
   setIsMatch: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 // The LuckyNumber component
-export default function LuckyNumber({ selectedNumber , isFrozen, /*isMatch,*/ setIsMatch }: LuckyNumberProps) {
+export default function LuckyNumber({ setLuckyNumber, luckyNumber, selectedNumber , isFrozen, isMatch, setIsMatch }: LuckyNumberProps) {
   // State to store the lucky number
-  const [luckyNumber, setLuckyNumber] = useState<string | number>("...");
-  const [isMatch, setLocalIsMatch] = useState<boolean>(false);
-  /* State to store the Unix time
+  /*const [luckyNumber, setLuckyNumber] = useState<string | number>("...");*/
+  /*const [isMatch, setIsMatch] = useState<boolean>(false);
+  // State to store the Unix time
   const [unixTime, setUnixTime] = useState("");
   // State to store the formatted date
   const [formattedDate, setUnixTimeDate] = useState(""); 
-  // hook that calculates isMatch when selectedNumber or luckyNumber changes*/
-  /*useEffect(() => {
+  // hook that calculates isMatch when selectedNumber or luckyNumber changes
+  useEffect(() => {
     setIsMatch(selectedNumber === Number(luckyNumber));
   }, [selectedNumber, luckyNumber]);*/
 
@@ -60,7 +62,6 @@ export default function LuckyNumber({ selectedNumber , isFrozen, /*isMatch,*/ se
         const luckyNumber = ((bigIntHash * unixTime * randomMultiplier) % 21) + 1;
         // Update state with the new lucky number and time
         setLuckyNumber(luckyNumber.toString());
-        setLocalIsMatch(selectedNumber === luckyNumber);
         setIsMatch(selectedNumber === luckyNumber);
         /*setUnixTime(unixTime.toString());
         setUnixTimeDate(formattedDate);*/
@@ -71,8 +72,8 @@ export default function LuckyNumber({ selectedNumber , isFrozen, /*isMatch,*/ se
     }
     // Call the function to fetch the lucky number
     fetchLuckyNumber();
-  // Dependency array, effect runs when selectedNumber
-  }, [selectedNumber, setIsMatch]); 
+  // useEffect triggers only when selectedNumber or isFrozen changes
+  }, [selectedNumber]); 
 
   // Render the LuckyNumber component
   /* return { luckyNumber, unixTime, formattedDate };*/
@@ -85,7 +86,7 @@ export default function LuckyNumber({ selectedNumber , isFrozen, /*isMatch,*/ se
                   m-4 
                   ${isMatch ? 'text-green-400' : isFrozen ? 'text-gray-400' : 'text-orange-400'}`}
     >
-      {/* Test box to show values on the right */}
+      {/* Test box to show values on the right 
       <div className="absolute top-0 right-0 mt-4 mr-4 w-50 p-4 bg-gray-800 border border-gray-700 text-white rounded-lg shadow-lg">
         <h2 className="text-lg font-bold mb-4">Debug Information</h2>
         <ul className="list-none text-center">
@@ -93,7 +94,7 @@ export default function LuckyNumber({ selectedNumber , isFrozen, /*isMatch,*/ se
           <li className="py-1">Selected Number: {selectedNumber}</li>
           <li className="py-1">Is Match: {isMatch.toString()}</li>
         </ul>
-      </div>
+      </div>*/}
       <h2>Número de la Suerte:</h2>
       <h2 
         className={`font-bold 
