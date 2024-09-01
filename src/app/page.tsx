@@ -1,22 +1,28 @@
 "use client";
 
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import Image from "next/image";
-import LuckyNumber from "@/components/LuckyNumber";
-import Slider from "@/components/slider";
+// import Slider from "@/components/slider";
+// import Roulette from "@/components/Roulette";
 import Roulette from "@/components/Roulette";
-import Circle from "@/components/Circle";
+import { LuckyContext } from '@/providers/lucky-context';
+import LuckyNumber from '@/components/LuckyNumber';
+import { LaCryptaLogo } from '../components/Logo';
 
 export default function Home() {
-  const [selectedNumber, setSelectedNumber] = useState<number | null>(null);
-  const [luckyNumber, setLuckyNumber] = useState<string | null>(null);
+  const {isMatch, isFrozen, luckyNumber, selectedNumber}=useContext(LuckyContext)
+  /*const [selectedNumber, setSelectedNumber] = useState<number | null>(null);
+  const [luckyNumber, setLuckyNumber] = useState<number | null>(null);
   const [isFrozen, setIsFrozen] = useState<boolean>(false);
   const [isMatch, setIsMatch] = useState<boolean>(false);
-  
+  const data: LuckyNumberProps = {
+    
+  };*/
+
   return (
     <main className="flex min-h-screen flex-col items-center p-24 bg-black/95 text-orange-300">
       
-      <div className={`z-10 w-full max-w-5xl items-center justify-between bg-gray-600 border-solid border-2 ${isMatch ? 'border-green-400' : 'border-orange-300'} rounded-md p-4 font-mono text-sm lg:flex`}>
+      <div className={`z-10 w-full max-w-5xl items-center justify-between bg-gray-700 border-solid border-2 ${isMatch ? 'border-green-400' : 'border-orange-300'} rounded-md p-4 font-mono text-sm lg:flex`}>
         <p className={`fixed left-0 top-0 bg-black/95 flex w-full justify-center border-b ${isMatch ? 'border-green-400 text-green-400' : 'border-orange-300'} pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 lg:static lg:w-auto  lg:rounded-xl lg:border lg:p-4`}>
           Get started by editing&nbsp;
           <code className="font-mono font-bold">src/app/page.tsx</code>
@@ -29,14 +35,7 @@ export default function Home() {
             rel="noopener noreferrer"
           >
             By{" "}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className="dark:invert"
-              width={100}
-              height={24}
-              priority
-            />
+            <LaCryptaLogo />
           </a>
         </div>
       </div>
@@ -68,24 +67,11 @@ export default function Home() {
           <h2>Unix time: {unixTime} | Fecha: {formattedDate}</h2>
         </div>*/}
         {/* Renders a box that shows luckynumber after user selects some number in roulette */}
-        <LuckyNumber
-          setLuckyNumber={setLuckyNumber}
-          luckyNumber={luckyNumber} 
-          selectedNumber={selectedNumber} 
-          isFrozen={isFrozen} 
-          setIsMatch={setIsMatch}
-          isMatch={isMatch} 
-        />
+        <LuckyNumber />
         {/* Renders a roulette of numbers that user can select */}
-        <Circle
-          selectedNumber={selectedNumber} 
-          setSelectedNumber={setSelectedNumber}
-          isMatch={isMatch}
-          isFrozen={isFrozen}
-          setIsFrozen={setIsFrozen}
-        />
+        <Roulette />
       </div>
-      {/* Debug box*/}
+      {/* Debug box
       <div className="absolute top-0 right-0 mt-4 mr-4 w-50 p-4 bg-gray-800 border border-gray-700 text-white rounded-lg shadow-lg">
         <h2 className="text-lg font-bold mb-4">Debug Information</h2>
         <ul className="list-none text-center">
@@ -93,7 +79,7 @@ export default function Home() {
           <li className="py-1">Selected Number: {selectedNumber}</li>
           <li className="py-1">Is Match: {isMatch.toString()}</li>
         </ul>
-      </div>
+      </div>*/}
 
       {/*<div className="mb-32 grid text-center lg:mb-0 lg:w-full lg:max-w-5xl lg:grid-cols-4 lg:text-left">
         <a

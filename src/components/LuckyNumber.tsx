@@ -1,22 +1,25 @@
 "use client";
 
+import { LuckyContext } from '@/providers/lucky-context';
 import axios from 'axios';
 import BigInteger from 'big-integer';
-import { useState, useEffect } from 'react';
+import { useContext, useEffect } from 'react';
 
 // Define the props that LuckyNumber will receive
-interface LuckyNumberProps {
-  setLuckyNumber: React.Dispatch<React.SetStateAction<null | string>>;
-  luckyNumber: null | string;
+/*export interface LuckyNumberProps {
+  setLuckyNumber: React.Dispatch<React.SetStateAction<null | number>>;
+  luckyNumber: null | number;
   selectedNumber: number | null; // The number selected by the user or null if no number is selected
   isFrozen: boolean; // Whether the application is in a frozen state
   isMatch: boolean;
   setIsMatch: React.Dispatch<React.SetStateAction<boolean>>;
-}
+}*/
 
 // The LuckyNumber component
-export default function LuckyNumber({ setLuckyNumber, luckyNumber, selectedNumber , isFrozen, isMatch, setIsMatch }: LuckyNumberProps) {
+export default function LuckyNumber({}) {
+  const {isMatch, luckyNumber, setLuckyNumber, setIsMatch, selectedNumber, isFrozen}=useContext(LuckyContext)
   // State to store the lucky number
+  console.info("kuka el que lee")
   /*const [luckyNumber, setLuckyNumber] = useState<string | number>("...");*/
   /*const [isMatch, setIsMatch] = useState<boolean>(false);
   // State to store the Unix time
@@ -33,17 +36,17 @@ export default function LuckyNumber({ setLuckyNumber, luckyNumber, selectedNumbe
     // Function to fetch the lucky number from the API
     async function fetchLuckyNumber() {
       // If no number is selected, set luckyNumber to "..." and return
-      if (selectedNumber === null) {
+      /*if (selectedNumber === null) {
         setLuckyNumber("...");
         return;
-      }
+      }*/
 
       try {
         // Fetch data from the API
         const response = await axios.get("https://mempool.space/api/v1/blocks?q=latest");
         const data = response.data[0];
-        const blockHash = data.id.replace(/"/g, ""); // Extract block hash
-        const bigIntHash = Number(BigInteger(blockHash, 16)); // Convert hash to BigInt
+        // const blockHash = data.id.replace(/"/g, ""); // Extract block hash
+        const bigIntHash = Number(BigInteger(data.id, 16)); // Convert hash to BigInt
         // Get current Unix time
         const unixTime = Number(Math.floor(Date.now() / 1000)); 
         const unixTimeDate = new Date(unixTime * 1000);
@@ -61,7 +64,7 @@ export default function LuckyNumber({ setLuckyNumber, luckyNumber, selectedNumbe
         // Calculate luckyNumber using the hash, Unix time, and a random multiplier
         const luckyNumber = ((bigIntHash * unixTime * randomMultiplier) % 21) + 1;
         // Update state with the new lucky number and time
-        setLuckyNumber(luckyNumber.toString());
+        setLuckyNumber(luckyNumber);
         setIsMatch(selectedNumber === luckyNumber);
         /*setUnixTime(unixTime.toString());
         setUnixTimeDate(formattedDate);*/
