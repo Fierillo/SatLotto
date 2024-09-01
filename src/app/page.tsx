@@ -9,7 +9,9 @@ import Circle from "@/components/Circle";
 
 export default function Home() {
   const [selectedNumber, setSelectedNumber] = useState<number | null>(null);
+  const [luckyNumber, setLuckyNumber] = useState<number | null>(null);
   const [isFrozen, setIsFrozen] = useState<boolean>(false);
+  const [isMatch, setIsMatch] = useState<boolean>(false);
   
   return (
     <main className="flex min-h-screen flex-col items-center p-24 bg-black/95 text-orange-300">
@@ -52,12 +54,12 @@ export default function Home() {
                     m-8 
                     px-4 
                     py-4
-                    ${isFrozen ? 'border-gray-400' : 'border-orange-300'}`}
+                    ${isMatch ? 'border-green-400' : isFrozen ? 'border-gray-400' : 'border-orange-300'}`}
       >
         <h1 
           className={`font-bold 
-                      text-4xl´
-                      ${isFrozen ? 'text-gray-400' : 'text-orange-500'}`}
+                      text-4xl
+                      ${isMatch ? 'text-green-400' : isFrozen ? 'text-gray-400' : 'text-orange-300'}`}
         >
           SatLotto
         </h1>
@@ -65,10 +67,20 @@ export default function Home() {
           <h2 className="m-4">Tu Número de la Suerte: {luckyNumber ? luckyNumber : "Cargando..."}</h2>
           <h2>Unix time: {unixTime} | Fecha: {formattedDate}</h2>
         </div>*/}
-        {/* Conditionally render LuckyNumber only if selectedNumber is not null */}
-        <LuckyNumber selectedNumber={selectedNumber} isFrozen={isFrozen} />
-        {/* Pass setSelectedNumber to RuletaCircular */}
-        <Circle setSelectedNumber={setSelectedNumber} isFrozen={isFrozen} setIsFrozen={setIsFrozen} />
+        {/* Renders a box that shows luckynumber after user selects some number in roulette */}
+        <LuckyNumber 
+          selectedNumber={selectedNumber} 
+          isFrozen={isFrozen} 
+          setIsMatch={setIsMatch} 
+        />
+        {/* Renders a roulette of numbers that user can select */}
+        <Circle
+          selectedNumber={selectedNumber} 
+          setSelectedNumber={setSelectedNumber}
+          isMatch={isMatch}
+          isFrozen={isFrozen}
+          setIsFrozen={setIsFrozen}
+        />
       </div>
 
       {/*<div className="mb-32 grid text-center lg:mb-0 lg:w-full lg:max-w-5xl lg:grid-cols-4 lg:text-left">
