@@ -1,27 +1,39 @@
-import React, { useState } from 'react';
+import React, { use, useState } from 'react';
 import LuckyNumber from './LuckyNumber';
-
-interface RuletaCircularProps {
+// Type variables
+interface circleProps {
+  selectedNumber: number | null;
   setSelectedNumber: React.Dispatch<React.SetStateAction<number | null>>;
   isFrozen: boolean;
   setIsFrozen: React.Dispatch<React.SetStateAction<boolean>>;
+  isMatch: boolean;
 }
-
-export default function RuletaCircular({ setSelectedNumber, isFrozen, setIsFrozen }: RuletaCircularProps) {
-  const [selectedNumber, setLocalSelectedNumber] = useState<number | null>(null);
+// Define circle
+export default function Circle({ selectedNumber, setSelectedNumber, isFrozen, setIsFrozen, isMatch }: circleProps) {
+  const [victoryMessage, setVictoryMessage] = useState<string | null>(null);
+  //const [selectedNumber, setLocalSelectedNumber] = useState<number | null>(null);
+  //const [isFrozen, setLocalIsFrozen] = useState<boolean>(false);
   const numbers = Array.from({ length: 21 }, (_, i) => i + 1);
+  
 
   const handleClick = (number: number) => {
-    if (isFrozen) return; // Prevent click if frozen
+    if (isMatch || victoryMessage) return; // Prevent click if frozen
+    // Get current unix time
+    const unixTime = Math.floor(Date.now()); 
 
-    setLocalSelectedNumber(number);
     setSelectedNumber(number);
-
-    // Start freezing
     setIsFrozen(true);
-    setTimeout(() => {
+
+    // Starts freeze for 3 seconds
+    if (isMatch) {
+      setVictoryMessage("¡GANASTE LOKO!");
       setIsFrozen(false);
-    }, 3000); // 3 seconds freeze
+      return;
+    } else {
+      setTimeout(() => {
+        setIsFrozen(false);
+      }, 100);
+    } 
   };
 
   return (
@@ -39,7 +51,7 @@ export default function RuletaCircular({ setSelectedNumber, isFrozen, setIsFroze
                     transition-colors
                     duration-500
                     ease-in-out
-                    ${isFrozen ? 'border-gray-300' : 'border-orange-300'}`}
+                    ${isMatch ? 'border-green-400' : isFrozen ? 'border-gray-300' : 'border-orange-300'}`}
       >
         {numbers.map((number, index) => {
           // Calculate the angle and corresponding position
@@ -61,7 +73,7 @@ export default function RuletaCircular({ setSelectedNumber, isFrozen, setIsFroze
                           transition-transform
                           duration-500
                           ease-in-out
-                          ${isFrozen ? 'bg-gray-400' : 'bg-orange-300'}
+                          ${isMatch ? 'bg-green-400' : isFrozen ? 'bg-gray-400' : 'bg-orange-300'}
                           text-black`}
               style={{
                 top: `${y}%`,
@@ -76,7 +88,7 @@ export default function RuletaCircular({ setSelectedNumber, isFrozen, setIsFroze
         })}
       </div>
 
-      {/* Selected number display */}
+      {/* Renders selected number in the middle of the circle */}
       <div
         className={`absolute
                     flex
@@ -84,9 +96,9 @@ export default function RuletaCircular({ setSelectedNumber, isFrozen, setIsFroze
                     justify-center
                     text-2xl
                     font-bold
-                    ${isFrozen ? 'text-gray-400' : 'text-orange-300'}`}
+                    ${isMatch ? 'text-green-400' : isFrozen ? 'text-gray-400' : 'text-orange-300'}`}
       >
-        {selectedNumber !== null ? selectedNumber : "Selecciona un numero..."}
+        {isMatch ? "GANASTE LOKO!" : selectedNumber !== null ? <h1 className='text-6xl'>{selectedNumber}</h1> : "Selecciona un numero..."}
       </div>
     </div>
   );
