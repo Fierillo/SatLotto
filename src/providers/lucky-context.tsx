@@ -1,5 +1,5 @@
 // My first provider :)
-import { createContext, useContext, useState } from 'react';
+import { createContext, useState } from 'react';
 
 export const LuckyContext = createContext<{
     setLuckyNumber: React.Dispatch<React.SetStateAction<null | number>>;
@@ -31,10 +31,4 @@ export function LuckyProvider ({ children }: LuckyProviderProps) {
     const [isFrozen, setIsFrozen] = useState<boolean>(false);
     const [isMatch, setIsMatch] = useState<boolean>(false);
     return <LuckyContext.Provider value={{setLuckyNumber, luckyNumber, setSelectedNumber , selectedNumber , setIsFrozen , isFrozen, setIsMatch, isMatch }}>{children}</LuckyContext.Provider>
-}
-
-function coso ({ children }: LuckyProviderProps) {
-    const {}=useContext(LuckyContext)
-    return <div></div>
-
 }

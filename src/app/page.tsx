@@ -22,10 +22,10 @@ export default function Home() {
   return (
     <main className="flex min-h-screen flex-col items-center p-24 bg-black/95 text-orange-300">
       
-      <div className={`z-10 w-full max-w-5xl items-center justify-between bg-gray-700 border-solid border-2 ${isMatch ? 'border-green-400' : 'border-orange-300'} rounded-md p-4 font-mono text-sm lg:flex`}>
+      <div className={`z-10 w-full max-w-5xl items-center justify-between bg-gray-500 border-solid border-2 ${isMatch ? 'border-green-400' : 'border-orange-300'} rounded-md p-4 font-mono text-sm lg:flex`}>
         <p className={`fixed left-0 top-0 bg-black/95 flex w-full justify-center border-b ${isMatch ? 'border-green-400 text-green-400' : 'border-orange-300'} pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 lg:static lg:w-auto  lg:rounded-xl lg:border lg:p-4`}>
-          Get started by editing&nbsp;
-          <code className="font-mono font-bold">src/app/page.tsx</code>
+          La comunidad bitcoiner mas picante&nbsp;
+          <code className="font-mono font-bold">de Argentina, ¡el mejor pais del mundo!</code>
         </p>
         <div className={`${isMatch ? 'text-green-400' : 'text-orange-300'} fixed bottom-0 left-0 flex h-48 w-full items-end justify-center bg-gradient-to-t from-white via-white dark:from-black dark:via-black lg:static lg:size-auto lg:bg-none`}>
           <a

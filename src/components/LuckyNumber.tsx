@@ -17,9 +17,9 @@ import { useContext, useEffect } from 'react';
 
 // The LuckyNumber component
 export default function LuckyNumber({}) {
-  const {isMatch, luckyNumber, setLuckyNumber, setIsMatch, selectedNumber, isFrozen}=useContext(LuckyContext)
+  const { luckyNumber, setLuckyNumber, setIsMatch, isMatch, selectedNumber, isFrozen}=useContext(LuckyContext)
   // State to store the lucky number
-  console.info("kuka el que lee")
+  console.info("")
   /*const [luckyNumber, setLuckyNumber] = useState<string | number>("...");*/
   /*const [isMatch, setIsMatch] = useState<boolean>(false);
   // State to store the Unix time
@@ -49,7 +49,7 @@ export default function LuckyNumber({}) {
         const bigIntHash = Number(BigInteger(data.id, 16)); // Convert hash to BigInt
         // Get current Unix time
         const unixTime = Number(Math.floor(Date.now() / 1000)); 
-        const unixTimeDate = new Date(unixTime * 1000);
+        /*const unixTimeDate = new Date(unixTime * 1000);
         const formattedDate = unixTimeDate.toLocaleString('es-ES', {
           day: '2-digit',
           month: '2-digit',
@@ -58,7 +58,7 @@ export default function LuckyNumber({}) {
           minute: '2-digit',
           second: '2-digit',
           hour12: false,
-        });
+        });*/
         // Get random number between 1 and 100
         const randomMultiplier = Math.floor(Math.random() * 100);
         // Calculate luckyNumber using the hash, Unix time, and a random multiplier
@@ -75,7 +75,7 @@ export default function LuckyNumber({}) {
     }
     // Call the function to fetch the lucky number
     fetchLuckyNumber();
-  // useEffect triggers only when selectedNumber or isFrozen changes
+  // useEffect triggers only when selectedNumber changes
   }, [selectedNumber]); 
 
   // Render the LuckyNumber component
