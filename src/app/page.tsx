@@ -75,17 +75,17 @@ export default function Home() {
           <GitHubLogo />
         </a>
       </div>
-      {/* Caja de depuración
+      {/* Caja de depuración */}
       <div className="absolute top-0 right-0 mt-4 mr-4 w-50 p-4 bg-gray-800 border border-gray-700 text-white rounded-lg shadow-lg">
         {/*<DebugBox />*/}
-        {/*<h2 className="text-lg font-bold mb-4">Debug Information</h2>
+        <h2 className="text-lg font-bold mb-4">Debug Information</h2>
         <ul className="text-center">
           <li className="py-1">Lucky Number: {luckyNumber}</li>
-          <li className="py-1">Selected Number: {selectedNumber}</li>
+          <li className="py-1">Selected Number: {(selectedNumber as { number: number }).number}</li>
           <li className="py-1">Is Match: {isMatch.toString()}</li>
           <li className="py-1">Is Frozen: {isFrozen.toString()}</li>
         </ul>
-      </div>*/}
+      </div>
 
       {/*<div className="mb-32 grid text-center lg:mb-0 lg:w-full lg:max-w-5xl lg:grid-cols-4 lg:text-left">
         <a

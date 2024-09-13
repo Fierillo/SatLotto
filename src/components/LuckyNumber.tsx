@@ -37,7 +37,7 @@ export function LuckyNumber({}) {
           const luckyNumber = ((bigIntHash * unixTime * randomMultiplier) % 21) + 1;
           // Set the lucky number and check if it matches the selected number
           setLuckyNumber(luckyNumber);
-          setIsMatch(Number(selectedNumber) === luckyNumber);
+          setIsMatch(((selectedNumber as { number: number }).number) === luckyNumber);
         } catch (error) {
           // Error handling
           console.error("Failed to fetch lucky number:", error);

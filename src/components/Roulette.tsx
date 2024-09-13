@@ -30,7 +30,7 @@ export function Roulette( ) {
     } else {
       setSelectedNumber(number);
     }*/
-    setSelectedNumber({ number : number })
+    setSelectedNumber({ number })
     // Activates frozen status
     setIsFrozen(true);
     // Starts freeze for 3 seconds, then desactivate frozen status
