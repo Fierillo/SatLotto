@@ -5,8 +5,6 @@ import Roulette2, { Roulette } from "@/components/Roulette";
 import { LuckyContext } from '@/providers/lucky-context';
 import LuckyNumber2, { LuckyNumber } from '@/components/LuckyNumber';
 import { GitHubLogo, LaCryptaLogo } from '../components/Logo';
-import {Benchmark, BenchmarkStateUpdates} from '@/components/Benchmark';
-import {BenchmarkRoulette} from '@/components/Benchmark';
 
 export default function Home() {
   const {isMatch, isFrozen, setIsFrozen, luckyNumber, selectedNumber}=useContext(LuckyContext);

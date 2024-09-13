@@ -149,7 +149,7 @@ export default function LuckyNumber2() {
       >
         {luckyNumber !== null ? luckyNumber : "..."}
       </h2>
-      <p className='text-sm text-gray-500'>Render count: {renderCount}</p>
+      {/*<p className='text-sm text-gray-500'>Render count: {renderCount}</p>*/}
       {/*<h2>Unix time: {unixTime} | Fecha: {formattedDate}</h2>*/}
     </div>
   );

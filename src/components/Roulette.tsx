@@ -232,7 +232,7 @@ export default function Roulette2() {
     <div className="relative flex flex-col items-center justify-center">
       {rouletteWheel}
       {rouletteCenter}
-      <p className='text-[1rem] text-gray-400'>Render count: {renderCount}</p>
+      {/*<p className='text-[1rem] text-gray-400'>Render count: {renderCount}</p>*/}
     </div>
   );
 }
