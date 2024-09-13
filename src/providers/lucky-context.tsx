@@ -4,8 +4,8 @@ import { createContext, useState } from 'react';
 export const LuckyContext = createContext<{
     setLuckyNumber: React.Dispatch<React.SetStateAction<number | null>>;
     luckyNumber: number | null;
-    setSelectedNumber: React.Dispatch<React.SetStateAction<string |{ number: Number }>>
-    selectedNumber: string | { number: Number }; // The number selected by the user or null if no number is selected
+    setSelectedNumber: React.Dispatch<React.SetStateAction<string | { number: Number }>>
+    selectedNumber: string | { number: Number }; // The number selected by the user or default text at the start
     setIsFrozen: React.Dispatch<React.SetStateAction<boolean>>;
     isFrozen: boolean; // Whether the application is in a frozen state
     setIsMatch: React.Dispatch<React.SetStateAction<boolean>>;

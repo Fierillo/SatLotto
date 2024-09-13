@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useContext, useEffect } from 'react';
-import Roulette2, { Roulette } from "@/components/Roulette";
+import  { Roulette } from "@/components/Roulette";
 import { LuckyContext } from '@/providers/lucky-context';
 import LuckyNumber2, { LuckyNumber } from '@/components/LuckyNumber';
 import { GitHubLogo, LaCryptaLogo } from '../components/Logo';
