@@ -2,10 +2,10 @@
 import { createContext, useState } from 'react';
 
 export const LuckyContext = createContext<{
-    setLuckyNumber: React.Dispatch<React.SetStateAction<null | number>>;
-    luckyNumber: null | number;
-    setSelectedNumber: React.Dispatch<React.SetStateAction<null | number>>
-    selectedNumber: number | null; // The number selected by the user or null if no number is selected
+    setLuckyNumber: React.Dispatch<React.SetStateAction<number | null>>;
+    luckyNumber: number | null;
+    setSelectedNumber: React.Dispatch<React.SetStateAction<string |{ number: Number }>>
+    selectedNumber: string | { number: Number }; // The number selected by the user or null if no number is selected
     setIsFrozen: React.Dispatch<React.SetStateAction<boolean>>;
     isFrozen: boolean; // Whether the application is in a frozen state
     setIsMatch: React.Dispatch<React.SetStateAction<boolean>>;
@@ -14,7 +14,7 @@ export const LuckyContext = createContext<{
     setLuckyNumber: () => { },
     luckyNumber: null,
     setSelectedNumber: () => { },
-    selectedNumber: null,
+    selectedNumber: { number: 0 },
     setIsFrozen: () => { },
     isFrozen: false,
     setIsMatch: () => { },
@@ -26,7 +26,7 @@ interface LuckyProviderProps {
 }
 
 export function LuckyProvider ({ children }: LuckyProviderProps) {
-    const [selectedNumber, setSelectedNumber] = useState<number | null>(null);
+    const [selectedNumber, setSelectedNumber] = useState<string | { number: Number }>("Selecciona un numero...");
     const [luckyNumber, setLuckyNumber] = useState<number | null>(null);
     const [isFrozen, setIsFrozen] = useState<boolean>(false);
     const [isMatch, setIsMatch] = useState<boolean>(false);

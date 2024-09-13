@@ -1,27 +1,26 @@
 "use client";
 
-import React, { useContext, useState } from 'react';
-import Image from "next/image";
-// import Slider from "@/components/slider";
-// import Roulette from "@/components/Roulette";
-import Roulette from "@/components/Roulette";
+import React, { useContext, useEffect } from 'react';
+import Roulette2, { Roulette } from "@/components/Roulette";
 import { LuckyContext } from '@/providers/lucky-context';
-import LuckyNumber from '@/components/LuckyNumber';
-import { LaCryptaLogo } from '../components/Logo';
+import LuckyNumber2, { LuckyNumber } from '@/components/LuckyNumber';
+import { GitHubLogo, LaCryptaLogo } from '../components/Logo';
+import {Benchmark, BenchmarkStateUpdates} from '@/components/Benchmark';
+import {BenchmarkRoulette} from '@/components/Benchmark';
 
 export default function Home() {
-  const {isMatch, isFrozen, luckyNumber, selectedNumber}=useContext(LuckyContext)
-  /*const [selectedNumber, setSelectedNumber] = useState<number | null>(null);
-  const [luckyNumber, setLuckyNumber] = useState<number | null>(null);
-  const [isFrozen, setIsFrozen] = useState<boolean>(false);
-  const [isMatch, setIsMatch] = useState<boolean>(false);
-  const data: LuckyNumberProps = {
-    
-  };*/
+  const {isMatch, isFrozen, setIsFrozen, luckyNumber, selectedNumber}=useContext(LuckyContext);
+  // Initial freeze time to prevent user's cheating refreshing the page
+  useEffect(() => {
+    setIsFrozen(true);
+    setTimeout(() => {
+      setIsFrozen(false);
+    }, 3000);
+  }, []);
 
   return (
     <main className="flex min-h-screen flex-col items-center p-24 bg-black/95 text-orange-300">
-      
+      {/* Header */}	
       <div className={`z-10 w-full max-w-5xl items-center justify-between bg-gray-500 border-solid border-2 ${isMatch ? 'border-green-400' : 'border-orange-300'} rounded-md p-4 font-mono text-sm lg:flex`}>
         <p className={`fixed left-0 top-0 bg-black/95 flex w-full justify-center border-b ${isMatch ? 'border-green-400 text-green-400' : 'border-orange-300'} pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 lg:static lg:w-auto  lg:rounded-xl lg:border lg:p-4`}>
           La comunidad bitcoiner mas picante&nbsp;
@@ -30,7 +29,7 @@ export default function Home() {
         <div className={`${isMatch ? 'text-green-400' : 'text-orange-300'} fixed bottom-0 left-0 flex h-48 w-full items-end justify-center bg-gradient-to-t from-white via-white dark:from-black dark:via-black lg:static lg:size-auto lg:bg-none`}>
           <a
             className="pointer-events-none flex place-items-center gap-2 p-8 lg:pointer-events-auto lg:p-0"
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
+            href="https://lacrypta.ar/"
             target="_blank"
             rel="noopener noreferrer"
           >
@@ -39,7 +38,7 @@ export default function Home() {
           </a>
         </div>
       </div>
-
+      {/* Main container */}
       <div 
         className={`container 
                     m-16 
@@ -50,7 +49,6 @@ export default function Home() {
                     border-2 
                     rounded-lg  
                     justify-center 
-                    m-8 
                     px-4 
                     py-4
                     ${isMatch ? 'border-green-400' : isFrozen ? 'border-gray-400' : 'border-orange-300'}`}
@@ -71,13 +69,23 @@ export default function Home() {
         {/* Renders a roulette of numbers that user can select */}
         <Roulette />
       </div>
-      {/* Debug box
+      {/* GitHub link */}
+      <div className={`relative bottom-0 center-0 mt-4 mr-4 
+        ${isMatch ? 'text-green-400' : isFrozen 
+        ? 'text-gray-400' : 'text-orange-300'}`}>
+        <a href="https://github.com/fierillo/satlotto">
+          <GitHubLogo />
+        </a>
+      </div>
+      {/* Caja de depuración
       <div className="absolute top-0 right-0 mt-4 mr-4 w-50 p-4 bg-gray-800 border border-gray-700 text-white rounded-lg shadow-lg">
-        <h2 className="text-lg font-bold mb-4">Debug Information</h2>
-        <ul className="list-none text-center">
+        {/*<DebugBox />*/}
+        {/*<h2 className="text-lg font-bold mb-4">Debug Information</h2>
+        <ul className="text-center">
           <li className="py-1">Lucky Number: {luckyNumber}</li>
           <li className="py-1">Selected Number: {selectedNumber}</li>
           <li className="py-1">Is Match: {isMatch.toString()}</li>
+          <li className="py-1">Is Frozen: {isFrozen.toString()}</li>
         </ul>
       </div>*/}
 
