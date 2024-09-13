@@ -108,7 +108,7 @@ export function Roulette( ) {
                     ${isMatch ? 'text-green-400' : isFrozen ? 'text-gray-400' : 'text-orange-300'}`}
       >
         {isMatch ? "GANASTE LOKO!" : selectedNumber !== "Selecciona un numero..." ? <h1 className='text-6xl'>{(selectedNumber.number)}</h1> : "Selecciona un numero..."}
-        <p className='font-normal text-sm text-gray-500'>Render count: {renderCount}</p>
+        {/*<p className='font-normal text-sm text-gray-500'>Render count: {renderCount}</p>*/}
       </div>
       
     </div>

@@ -14,7 +14,7 @@ export const LuckyContext = createContext<{
     setLuckyNumber: () => { },
     luckyNumber: null,
     setSelectedNumber: () => { },
-    selectedNumber: { number: 0 },
+    selectedNumber: "Selecciona un numero...",
     setIsFrozen: () => { },
     isFrozen: false,
     setIsMatch: () => { },

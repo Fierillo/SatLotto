@@ -37,7 +37,7 @@ export function LuckyNumber({}) {
           const luckyNumber = ((bigIntHash * unixTime * randomMultiplier) % 21) + 1;
           // Set the lucky number and check if it matches the selected number
           setLuckyNumber(luckyNumber);
-          setIsMatch(selectedNumber.number === luckyNumber);
+          setIsMatch(Number(selectedNumber) === luckyNumber);
         } catch (error) {
           // Error handling
           console.error("Failed to fetch lucky number:", error);
@@ -80,8 +80,7 @@ export function LuckyNumber({}) {
       >
         {luckyNumber !== null ? luckyNumber : "..."}
       </h2>
-      <p className='text-sm text-gray-500'>Render count: {renderCount}</p>
-      {/*<h2>Unix time: {unixTime} | Fecha: {formattedDate}</h2>*/}
+      {/*<p className='text-sm text-gray-500'>Render count: {renderCount}</p>*/}
     </div>
   );
 }
