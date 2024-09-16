@@ -1,119 +1,119 @@
-import React, { useCallback, useContext, useEffect, useMemo, useState } from 'react';
-import { LuckyContext } from '@/providers/lucky-context';
-import { useRenderCount } from '@/hooks/hooks';
+// import React, { useCallback, useContext, useEffect, useMemo, useState } from 'react';
+// import { LuckyContext } from '@/providers/lucky-context';
+// import { useRenderCount } from '@/hooks/hooks';
 
-// Type variables
-/*interface rouletteProps {
-  selectedNumber: number | null;
-  setSelectedNumber: React.Dispatch<React.SetStateAction<number | null>>;
-  isFrozen: boolean;
-  setIsFrozen: React.Dispatch<React.SetStateAction<boolean>>;
-  isMatch: boolean;
-}*/
+// // Type variables
+// /*interface rouletteProps {
+//   selectedNumber: number | null;
+//   setSelectedNumber: React.Dispatch<React.SetStateAction<number | null>>;
+//   isFrozen: boolean;
+//   setIsFrozen: React.Dispatch<React.SetStateAction<boolean>>;
+//   isMatch: boolean;
+// }*/
 
-// Constants
-const NUMBERS = Array.from({ length: 21 }, (_, i) => i + 1);
-const FREEZE_DURATION = 3000;
+// // Constants
+// const NUMBERS = Array.from({ length: 21 }, (_, i) => i + 1);
+// const FREEZE_DURATION = 3000;
 
-// Define roulette
-export function Roulette( ) {
-  const {isMatch, setSelectedNumber, selectedNumber, setIsFrozen, isFrozen}=useContext(LuckyContext)
-  const renderCount = useRenderCount("Roulette")
-  // Triggers when user selects some number in the roulette
-  const handleClick = (number: number) => {
-    // If user won OR user select a number, the game freezes
-    if (isMatch || isFrozen) return;
-    // If user chooses same number creates a micro change to trigger selectedNumber anyway
-    /*if (selectedNumber === number) {
-      setSelectedNumber(null);
-      setTimeout(() => setSelectedNumber(number), 100);
-    } else {
-      setSelectedNumber(number);
-    }*/
-    setSelectedNumber(number)
-    if (selectedNumber === number) {
-      setSelectedNumber(number)
-    }
-    // Activates frozen status
-    setIsFrozen(true);
-    // Starts freeze for 3 seconds, then desactivate frozen status
-    setTimeout(() => {
-      setIsFrozen(false);
-    }, FREEZE_DURATION);
-  };
+// // Define roulette
+// export function Roulette( ) {
+//   const {isMatch, setSelectedNumber, selectedNumber, setIsFrozen, isFrozen}=useContext(LuckyContext)
+//   const renderCount = useRenderCount("Roulette")
+//   // Triggers when user selects some number in the roulette
+//   const handleClick = (number: number) => {
+//     // If user won OR user select a number, the game freezes
+//     if (isMatch || isFrozen) return;
+//     // If user chooses same number creates a micro change to trigger selectedNumber anyway
+//     /*if (selectedNumber === number) {
+//       setSelectedNumber(null);
+//       setTimeout(() => setSelectedNumber(number), 100);
+//     } else {
+//       setSelectedNumber(number);
+//     }*/
+//     setSelectedNumber(number)
+//     if (selectedNumber === number) {
+//       setSelectedNumber(number)
+//     }
+//     // Activates frozen status
+//     setIsFrozen(true);
+//     // Starts freeze for 3 seconds, then desactivate frozen status
+//     setTimeout(() => {
+//       setIsFrozen(false);
+//     }, FREEZE_DURATION);
+//   };
 
-  return (
-    <div className="relative flex items-center justify-center">
-      {/* Main circle */}
-      <div
-        className={`relative
-                    w-64
-                    h-64
-                    rounded-full
-                    border-4
-                    flex
-                    mt-4
-                    mb-4
-                    items-center
-                    justify-center
-                    transition-colors
-                    duration-500
-                    ease-in-out
-                    ${isMatch ? 'border-green-400' : isFrozen ? 'border-gray-300' : 'border-orange-300'}`}
-      >
-        {NUMBERS.map((number, index) => {
-          // Calculate the angle and corresponding position
-          const angle = (index * 360) / NUMBERS.length - 90;
-          const x = 50 + 50 * Math.cos((angle * Math.PI) / 180);
-          const y = 50 + 50 * Math.sin((angle * Math.PI) / 180);
+//   return (
+//     <div className="relative flex items-center justify-center">
+//       {/* Main circle */}
+//       <div
+//         className={`relative
+//                     w-64
+//                     h-64
+//                     rounded-full
+//                     border-4
+//                     flex
+//                     mt-4
+//                     mb-4
+//                     items-center
+//                     justify-center
+//                     transition-colors
+//                     duration-500
+//                     ease-in-out
+//                     ${isMatch ? 'border-green-400' : isFrozen ? 'border-gray-300' : 'border-orange-300'}`}
+//       >
+//         {NUMBERS.map((number, index) => {
+//           // Calculate the angle and corresponding position
+//           const angle = (index * 360) / NUMBERS.length - 90;
+//           const x = 50 + 50 * Math.cos((angle * Math.PI) / 180);
+//           const y = 50 + 50 * Math.sin((angle * Math.PI) / 180);
 
-          return (
-            <div
-              key={number}
-              className={`absolute
-                          w-8
-                          h-8
-                          flex
-                          items-center
-                          justify-center
-                          rounded-full
-                          cursor-pointer
-                          transition-transform
-                          duration-500
-                          ease-in-out
-                          ${isMatch ? 'bg-green-400' : isFrozen ? 'bg-gray-400' : 'bg-orange-300'}
-                          text-black`}
-              style={{
-                top: `${y}%`,
-                left: `${x}%`,
-                transform: "translate(-50%, -50%)" // Center the number on its position
-              }}
-              onClick={() => handleClick(number)}
-            >
-              {number}
-            </div>
-          );
-        })}
-      </div>
+//           return (
+//             <div
+//               key={number}
+//               className={`absolute
+//                           w-8
+//                           h-8
+//                           flex
+//                           items-center
+//                           justify-center
+//                           rounded-full
+//                           cursor-pointer
+//                           transition-transform
+//                           duration-500
+//                           ease-in-out
+//                           ${isMatch ? 'bg-green-400' : isFrozen ? 'bg-gray-400' : 'bg-orange-300'}
+//                           text-black`}
+//               style={{
+//                 top: `${y}%`,
+//                 left: `${x}%`,
+//                 transform: "translate(-50%, -50%)" // Center the number on its position
+//               }}
+//               onClick={() => handleClick(number)}
+//             >
+//               {number}
+//             </div>
+//           );
+//         })}
+//       </div>
 
-      {/* Renders selected number in the middle of the circle */}
-      <div
-        className={`absolute
-                    flex
-                    flex-col
-                    text-center
-                    justify-center
-                    text-2xl
-                    font-bold
-                    ${isMatch ? 'text-green-400' : isFrozen ? 'text-gray-400' : 'text-orange-300'}`}
-      >
-        {isMatch ? "GANASTE LOKO!" : typeof selectedNumber === 'object' ? <h1 className='text-6xl'>{(selectedNumber.number).toString()}</h1> : selectedNumber /*<h1 className='text-6xl'>{Number(selectedNumber)}</h1> : "Selecciona un numero..."*/}
-        {/*<p className='font-normal text-sm text-gray-500'>Render count: {renderCount}</p>*/}
-      </div>
+//       {/* Renders selected number in the middle of the circle */}
+//       <div
+//         className={`absolute
+//                     flex
+//                     flex-col
+//                     text-center
+//                     justify-center
+//                     text-2xl
+//                     font-bold
+//                     ${isMatch ? 'text-green-400' : isFrozen ? 'text-gray-400' : 'text-orange-300'}`}
+//       >
+//         {isMatch ? "GANASTE LOKO!" : typeof selectedNumber === 'object' ? <h1 className='text-6xl'>{(selectedNumber.number).toString()}</h1> : selectedNumber /*<h1 className='text-6xl'>{Number(selectedNumber)}</h1> : "Selecciona un numero..."*/}
+//         {/*<p className='font-normal text-sm text-gray-500'>Render count: {renderCount}</p>*/}
+//       </div>
       
-    </div>
-  );
-}
+//     </div>
+//   );
+// }
 
 // // ROULETTE COMPONENT - V2
 
