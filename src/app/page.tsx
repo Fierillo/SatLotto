@@ -1,86 +1,79 @@
 "use client";
 
 import React, { useContext, useEffect } from 'react';
-import  { Roulette } from "@/components/Roulette";
 import { LuckyContext } from '@/providers/lucky-context';
-import LuckyNumber2, { LuckyNumber } from '@/components/LuckyNumber';
 import { GitHubLogo, LaCryptaLogo } from '../components/Logo';
+import BlockRelay from '@/components/BlockRelay';
+import NumberBoard from '@/components/NumberBoard';
 
 export default function Home() {
-  const {isMatch, isFrozen, setIsFrozen, luckyNumber, selectedNumber}=useContext(LuckyContext);
+  const {isMatch, isFrozen, luckyNumber, selectedNumber, setIsMatch, setIsFrozen}=useContext(LuckyContext);
+  
   // Initial freeze time to prevent user's cheating refreshing the page
-  useEffect(() => {
+  /*useEffect(() => {
     setIsFrozen(true);
     setTimeout(() => {
       setIsFrozen(false);
-    }, 3000);
-  }, []);
+    }, 1000);
+  }, []);*/
+  setIsMatch(luckyNumber === selectedNumber);
 
   return (
-    <main className="flex min-h-screen flex-col items-center p-24 bg-black/95 text-orange-300">
+    <main className={`max-w-full max-h-full overflow-x-hidden flex flex-col ${isMatch ? 'text-green-400 border-green-400' : isFrozen ? 'text-gray-400 border-gray-400' : 'text-orange-300 border-orange-300' } bg-black/95 items-center p-2`}>
       {/* Header */}	
-      <div className={`z-10 w-full max-w-5xl items-center justify-between bg-gray-500 border-solid border-2 ${isMatch ? 'border-green-400' : 'border-orange-300'} rounded-md p-4 font-mono text-sm lg:flex`}>
-        <p className={`fixed left-0 top-0 bg-black/95 flex w-full justify-center border-b ${isMatch ? 'border-green-400 text-green-400' : 'border-orange-300'} pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 lg:static lg:w-auto  lg:rounded-xl lg:border lg:p-4`}>
+      <div className={`flex flex-row w-full gap-8 items-center justify-between bg-gray-500 border-solid border-2 ${isMatch ? 'border-green-400' : isFrozen ? 'border-gray-400' : 'border-orange-300'} rounded-md px-4 font-mono text-sm md:flex`}>
+        {/* Text that is always visible */}
+        <p className={`flex min-h-4 p-2 gap-4 left-0 top-0 bg-black/95 w-full justify-center text-center border-b ${isMatch ? 'border-green-400 text-green-400' : isFrozen ? 'border-gray-400 text-gray-400' : 'border-orange-300 text-orange-300'} backdrop-blur-2xl dark:border-neutral-800 md:static md:w-auto  md:rounded-xl md:border md:p-4`}>
           La comunidad bitcoiner mas picante&nbsp;
           <code className="font-mono font-bold">de Argentina, ¡el mejor pais del mundo!</code>
         </p>
-        <div className={`${isMatch ? 'text-green-400' : 'text-orange-300'} fixed bottom-0 left-0 flex h-48 w-full items-end justify-center bg-gradient-to-t from-white via-white dark:from-black dark:via-black lg:static lg:size-auto lg:bg-none`}>
+        {/* Logo in the top that drop to bottom in smaller screens */}
+        <div className={`${isMatch ? 'text-green-400' : 'text-orange-300'} fixed bottom-0 left-0 h-30 w-full bg-gradient-to-t from-white via-white dark:from-black dark:via-black md:static md:size-auto md:bg-none`}>
           <a
-            className="pointer-events-none flex place-items-center gap-2 p-8 lg:pointer-events-auto lg:p-0"
+            className="flex flex-col items-center md:flex md:flex-row md:items-center md:gap-2"
             href="https://lacrypta.ar/"
             target="_blank"
             rel="noopener noreferrer"
           >
-            By{" "}
+            Powered by:{" "}
             <LaCryptaLogo />
           </a>
         </div>
       </div>
       {/* Main container */}
-      <div 
-        className={`container 
-                    m-16 
-                    flex 
-                    flex-col 
-                    items-center 
-                    border-solid 
-                    border-2 
-                    rounded-lg  
-                    justify-center 
-                    px-4 
-                    py-4
-                    ${isMatch ? 'border-green-400' : isFrozen ? 'border-gray-400' : 'border-orange-300'}`}
-      >
+      <div className={`relative max-w-full mt-2 container flex flex-col items-center border-solid border-2 rounded-lg justify-center px-1 py-4 ${isMatch ? 'border-green-400' : isFrozen ? 'border-gray-400' : 'border-orange-300'}`}>
+        {/* Title */}
         <h1 
-          className={`font-bold 
-                      text-4xl
+          className={`font-bold
+                      text-center
+                      text-6xl
                       ${isMatch ? 'text-green-400' : isFrozen ? 'text-gray-400' : 'text-orange-300'}`}
         >
           SatLotto
         </h1>
-        {/*<div>
-          <h2 className="m-4">Tu Número de la Suerte: {luckyNumber ? luckyNumber : "Cargando..."}</h2>
-          <h2>Unix time: {unixTime} | Fecha: {formattedDate}</h2>
-        </div>*/}
-        {/* Renders a box that shows luckynumber after user selects some number in roulette */}
+        {/* Renders a relay of the latest 10 Bitcoin's blocks */}
+        <BlockRelay />
+        {/* Renders a box that shows luckynumber after user selects some number in roulette 
         <LuckyNumber />
-        {/* Renders a roulette of numbers that user can select */}
-        <Roulette />
+        {/* Renders a roulette of numbers that user can select 
+        <Roulette /> */}
+        {/* Renders a board of numbers that user can select */}
+        <NumberBoard />
       </div>
       {/* GitHub link */}
-      <div className={`relative bottom-0 center-0 mt-4 mr-4 
+      <div className={`relative bottom-0 center-0 mt-4 mb-28 mr-4 
         ${isMatch ? 'text-green-400' : isFrozen 
         ? 'text-gray-400' : 'text-orange-300'}`}>
         <a href="https://github.com/fierillo/satlotto">
           <GitHubLogo />
         </a>
       </div>
-      {/* Caja de depuración
+      {/* Caja de depuración 
       <div className="absolute top-0 right-0 mt-4 mr-4 w-50 p-4 bg-gray-800 border border-gray-700 text-white rounded-lg shadow-lg">
         <h2 className="text-lg font-bold mb-4">Debug Information</h2>
         <ul className="text-center">
           <li className="py-1">Lucky Number: {luckyNumber}</li>
-          <li className="py-1">Selected Number: {(selectedNumber as { number: number }).number}</li>
+          <li className="py-1">Selected Number: {selectedNumber}</li>
           <li className="py-1">Is Match: {isMatch.toString()}</li>
           <li className="py-1">Is Frozen: {isFrozen.toString()}</li>
         </ul>
