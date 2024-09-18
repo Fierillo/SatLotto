@@ -3,8 +3,10 @@
 import React, { useContext, useEffect } from 'react';
 import { LuckyContext } from '@/providers/lucky-context';
 import { GitHubLogo, LaCryptaLogo } from '../components/Logo';
-import BlockRelay from '@/components/BlockRelay';
+import BlockRelay, { BlockRelay2 } from '@/components/BlockRelay';
 import NumberBoard from '@/components/NumberBoard';
+import { BenchmarkMonitor, PerformanceMonitor } from '@/components/Benchmark';
+import { RenderCountProvider } from '@/providers/benchmark-context';
 
 export default function Home() {
   const {isMatch, isFrozen, luckyNumber, selectedNumber, setIsMatch, setIsFrozen}=useContext(LuckyContext);
@@ -16,7 +18,10 @@ export default function Home() {
       setIsFrozen(false);
     }, 1000);
   }, []);*/
-  setIsMatch(luckyNumber === selectedNumber);
+  useEffect (() => {
+    setIsMatch(luckyNumber === selectedNumber);
+  }, [luckyNumber])  
+  
 
   return (
     <main className={`max-w-screen max-h-screen overflow-x-hidden flex flex-col ${isMatch ? 'text-green-400 border-green-400' : isFrozen ? 'text-gray-400 border-gray-400' : 'text-orange-300 border-orange-300' } bg-black/95 items-center p-2`}>
@@ -51,14 +56,14 @@ export default function Home() {
         >
           SatLotto
         </h1>
-        {/* Renders a relay of the latest 10 Bitcoin's blocks */}
-        <BlockRelay />
-        {/* Renders a box that shows luckynumber after user selects some number in roulette 
-        <LuckyNumber />
-        {/* Renders a roulette of numbers that user can select 
-        <Roulette /> */}
-        {/* Renders a board of numbers that user can select */}
-        <NumberBoard />
+          {/* Renders a relay of the latest 10 Bitcoin's blocks */}
+          <BlockRelay2 />
+          {/* Renders a box that shows luckynumber after user selects some number in roulette 
+          <LuckyNumber />
+          {/* Renders a roulette of numbers that user can select 
+          <Roulette /> */}
+          {/* Renders a board of numbers that user can select */}
+          <NumberBoard />
       </div>
       {/* GitHub link */}
       <div className={`relative mb-24 mt-4 
@@ -72,8 +77,8 @@ export default function Home() {
       <div className="absolute top-0 right-0 mt-4 mr-4 w-50 p-4 bg-gray-800 border border-gray-700 text-white rounded-lg shadow-lg">
         <h2 className="text-lg font-bold mb-4">Debug Information</h2>
         <ul className="text-center">
-          <li className="py-1">Lucky Number: {luckyNumber}</li>
-          <li className="py-1">Selected Number: {selectedNumber}</li>
+          <li className="py-1">Lucky Number: {luckyNumber} Tipo: {typeof(luckyNumber)}</li>
+          <li className="py-1">Selected Number: {selectedNumber} Tipo: {typeof(selectedNumber)}</li>
           <li className="py-1">Is Match: {isMatch.toString()}</li>
           <li className="py-1">Is Frozen: {isFrozen.toString()}</li>
         </ul>

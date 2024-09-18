@@ -220,7 +220,7 @@ export function BlockRelay2() {
         setLuckyNumber("...");
       }
     }
-  }, [blocks, blockCount, setIsFrozen, setLuckyNumber]);
+  }, [blockCount]);
 
   const getConditionalStyles = () => {
     if (isMatch) return "text-green-400 border-green-400";
@@ -242,7 +242,7 @@ export function BlockRelay2() {
         <button onClick={addTestBlock} className="px-4 py-2 border text-blue-500 border-blue-500 rounded-md hover:bg-blue-500 hover:text-black">
           Agregar bloque de prueba
         </button>
-      </div>*/}
+      </div> */}
       {/* Renders the block relay */}	
       <div className={`w-full h-28 mt-4 overflow-x-auto space-x-2 p-2 flex flex-row dark:border-neutral-800 rounded-lg border ${getConditionalStyles()}`}>
         {loading ? <div className="flex h-full items-center text-2xl">Cargando bloques...</div> : blocks.map((block, index) => (
@@ -257,7 +257,7 @@ export function BlockRelay2() {
             <span className="font-mono text-md md:text-xl lg:text-2xl">{block.height}</span>
             {/* Renders arrow pointing to the latest block */}
             {index === blocks.length - 1 && (
-              <div className="relative border-l-8 border-l-transparent border-r-8 border-r-transparent border-b-8 border-b-orange-300"></div>
+              <div className="relative border-l-8 border-l-transparent border-r-8 border-r-transparent border-b-8 border-b-red-500"></div>
             )}
             {/*<span className="text-xs w-20 text-center">
               {block.id.substring(0, 8)}...
