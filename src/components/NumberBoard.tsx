@@ -1,20 +1,10 @@
 'use client'
 
 import { LuckyContext } from '@/providers/lucky-context'
-import { useContext } from 'react'
+import { useContext, useEffect } from 'react'
 
-export default function NumberSelector() {
+export default function NumberBoard() {
   const {selectedNumber, setSelectedNumber, isFrozen, isMatch} = useContext(LuckyContext)
-
-  const getConditionalStyles = () => {
-    if (isMatch) {
-      return "text-green-400 border-green-400";
-    } else if (isFrozen) {
-      return "text-gray-400 border-gray-400";
-    } else {
-      return "text-orange-300 border-orange-300";
-    }
-  };
 
   return (
     <div className="w-full max-w-md p-4">

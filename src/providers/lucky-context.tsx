@@ -1,11 +1,11 @@
 // My first provider :)
-import { createContext, useState } from 'react';
+import { createContext, useEffect, useState } from 'react';
 
 export const LuckyContext = createContext<{
     setLuckyNumber: React.Dispatch<React.SetStateAction<number | string | null>>;
     luckyNumber: number | string | null;
     setSelectedNumber: React.Dispatch<React.SetStateAction<string | number>>
-    selectedNumber: string | number; // The number selected by the user or default text at the start
+    selectedNumber: null | string | number; // The number selected by the user or default text at the start
     setIsFrozen: React.Dispatch<React.SetStateAction<boolean>>;
     isFrozen: boolean; // Whether the application is in a frozen state
     setIsMatch: React.Dispatch<React.SetStateAction<boolean>>;
@@ -14,7 +14,7 @@ export const LuckyContext = createContext<{
     setLuckyNumber: () => { },
     luckyNumber: null,
     setSelectedNumber: () => { },
-    selectedNumber: "Selecciona un numero...",
+    selectedNumber: null,
     setIsFrozen: () => { },
     isFrozen: false,
     setIsMatch: () => { },
@@ -26,9 +26,20 @@ interface LuckyProviderProps {
 }
 
 export function LuckyProvider ({ children }: LuckyProviderProps) {
-    const [selectedNumber, setSelectedNumber] = useState<string | number>("Selecciona un numero...");
+    const [selectedNumber, setSelectedNumber] = useState<string | number>(() => {
+        const storedNumber = localStorage.getItem('selectedNumber');
+        return storedNumber ? JSON.parse(storedNumber) : "Selecciona un número...";
+    });
     const [luckyNumber, setLuckyNumber] = useState<number | string | null>(null);
     const [isFrozen, setIsFrozen] = useState<boolean>(false);
     const [isMatch, setIsMatch] = useState<boolean>(false);
+
+    // Efecto para guardar selectedNumber en localStorage
+    useEffect(() => {
+        if (selectedNumber !== null && selectedNumber !== undefined) {
+            localStorage.setItem('selectedNumber', JSON.stringify(selectedNumber));
+        }
+    }, [selectedNumber]);
+
     return <LuckyContext.Provider value={{setLuckyNumber, luckyNumber, setSelectedNumber , selectedNumber , setIsFrozen , isFrozen, setIsMatch, isMatch }}>{children}</LuckyContext.Provider>
 }
