@@ -3,7 +3,7 @@
 import React, { useContext, useEffect } from 'react';
 import { LuckyContext } from '@/providers/lucky-context';
 import { GitHubLogo, LaCryptaLogo } from '../components/Logo';
-import BlockRelay, { BlockRelay2 } from '@/components/BlockRelay';
+import { BlockRelay2 } from '@/components/BlockRelay';
 import NumberBoard from '@/components/NumberBoard';
 import { BenchmarkMonitor, PerformanceMonitor } from '@/components/Benchmark';
 import { RenderCountProvider } from '@/providers/benchmark-context';
