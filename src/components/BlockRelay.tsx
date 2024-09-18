@@ -234,7 +234,7 @@ export function BlockRelay2() {
 
   return (
     <div className="max-w-full">
-      {/* Renders test buttons for debugging purposes */} 
+      {/* Renders test buttons for debugging purposes 
       <div className={`max-h-auto flex justify-between items-center mb-4`}>
         <button onClick={fetchBlocks} className="px-4 py-2 border text-blue-500 border-blue-500 rounded-md hover:bg-blue-500 hover:text-black">
           Actualizar bloques
@@ -242,7 +242,7 @@ export function BlockRelay2() {
         <button onClick={addTestBlock} className="px-4 py-2 border text-blue-500 border-blue-500 rounded-md hover:bg-blue-500 hover:text-black">
           Agregar bloque de prueba
         </button>
-      </div> 
+      </div> */}
       {/* Renders the block relay */}	
       <div className={`w-full h-28 mt-4 overflow-x-auto space-x-2 p-2 flex flex-row dark:border-neutral-800 rounded-lg border ${getConditionalStyles()}`}>
         {loading ? <div className="flex h-full items-center text-2xl">Cargando bloques...</div> : blocks.map((block, index) => (
