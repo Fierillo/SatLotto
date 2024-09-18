@@ -26,17 +26,20 @@ interface LuckyProviderProps {
 }
 
 export function LuckyProvider ({ children }: LuckyProviderProps) {
-    const [selectedNumber, setSelectedNumber] = useState<string | number>(() => {
-        const storedNumber = localStorage.getItem('selectedNumber');
-        return storedNumber ? JSON.parse(storedNumber) : "Selecciona un número...";
-    });
+    const getInitialSelectedNumber = () => {
+        if (typeof window !== 'undefined') {
+            const storedNumber = localStorage.getItem('selectedNumber');
+            return storedNumber ? JSON.parse(storedNumber) : "Selecciona un número...";
+        }
+        return "Selecciona un número...";
+    };
+    const [selectedNumber, setSelectedNumber] = useState<string | number>(getInitialSelectedNumber);
     const [luckyNumber, setLuckyNumber] = useState<number | string | null>(null);
     const [isFrozen, setIsFrozen] = useState<boolean>(false);
     const [isMatch, setIsMatch] = useState<boolean>(false);
 
-    // Efecto para guardar selectedNumber en localStorage
     useEffect(() => {
-        if (selectedNumber !== null && selectedNumber !== undefined) {
+        if (typeof window !== 'undefined' && selectedNumber !== null && selectedNumber !== undefined) {
             localStorage.setItem('selectedNumber', JSON.stringify(selectedNumber));
         }
     }, [selectedNumber]);
