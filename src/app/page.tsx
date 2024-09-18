@@ -19,7 +19,7 @@ export default function Home() {
   setIsMatch(luckyNumber === selectedNumber);
 
   return (
-    <main className={`max-w-full max-h-full overflow-x-hidden flex flex-col ${isMatch ? 'text-green-400 border-green-400' : isFrozen ? 'text-gray-400 border-gray-400' : 'text-orange-300 border-orange-300' } bg-black/95 items-center p-2`}>
+    <main className={`max-w-screen max-h-screen overflow-x-hidden flex flex-col ${isMatch ? 'text-green-400 border-green-400' : isFrozen ? 'text-gray-400 border-gray-400' : 'text-orange-300 border-orange-300' } bg-black/95 items-center p-2`}>
       {/* Header */}	
       <div className={`flex flex-row w-full gap-8 items-center justify-between bg-gray-500 border-solid border-2 ${isMatch ? 'border-green-400' : isFrozen ? 'border-gray-400' : 'border-orange-300'} rounded-md px-4 font-mono text-sm md:flex`}>
         {/* Text that is always visible */}
@@ -41,7 +41,7 @@ export default function Home() {
         </div>
       </div>
       {/* Main container */}
-      <div className={`relative max-w-full mt-2 container flex flex-col items-center border-solid border-2 rounded-lg justify-center px-1 py-4 ${isMatch ? 'border-green-400' : isFrozen ? 'border-gray-400' : 'border-orange-300'}`}>
+      <div className={`relative h-screen max-w-full mt-2 container flex flex-col items-center border-solid border-2 rounded-lg justify-center px-1 py-4 ${isMatch ? 'border-green-400' : isFrozen ? 'border-gray-400' : 'border-orange-300'}`}>
         {/* Title */}
         <h1 
           className={`font-bold
@@ -61,7 +61,7 @@ export default function Home() {
         <NumberBoard />
       </div>
       {/* GitHub link */}
-      <div className={`relative bottom-0 center-0 mt-4 mb-28 mr-4 
+      <div className={`relative mb-24 mt-4 
         ${isMatch ? 'text-green-400' : isFrozen 
         ? 'text-gray-400' : 'text-orange-300'}`}>
         <a href="https://github.com/fierillo/satlotto">
